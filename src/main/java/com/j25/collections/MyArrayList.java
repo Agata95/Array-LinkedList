@@ -42,7 +42,7 @@ public class MyArrayList {
     }
 
     public void add(int index, Object object) {
-        if (index < 0 || index > size) {
+        if (index < 0 || index >= size) {
             throw new ArrayIndexOutOfBoundsException();
         }
         if (size >= elements.length) {
@@ -58,34 +58,51 @@ public class MyArrayList {
         size++;
     }
 
-    private void extendArray(int index, Object object) {
+    private void extendArray(int positionToPutAt, Object object) {
         Object[] newElements = new Object[elements.length * 2];
-        for (int i = size - 1; i >= index; i--) {
+        for (int i = size - 1; i >= positionToPutAt; i--) {
             newElements[i + 1] = elements[i];
         }
-        newElements[index] = object;
-        for (int i = index - 1; i >= 0; i--) {
+        newElements[positionToPutAt] = object;
+        for (int i = positionToPutAt - 1; i >= 0; i--) {
             newElements[i] = elements[i];
         }
         elements = newElements;
     }
+
+
     // remove
+    public void remove(int index) {
+        if (index < 0 || index >= size) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+        for (int i = index; i < size - 1; i++) {
+            elements[i] = elements[i + 1];
+        }
+        // 5, 10, 15, 20
+        //     x
+        // 5, 15, 15, 20
+        // 5, 15, 20, 20
+        // 5, 15, 20, null
+        // size --
+        elements[size - 1] = null; // zerujemy miejsce ostatnie
+        size--;
+    }
 
 
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder("[");
-        String result = "[";
         if (size > 0) {
             for (int i = 0; i < size; i++) {
                 builder.append(elements[i]);
                 builder.append(", ");
             }
 
-            result = builder.substring(0, builder.length() - 2);
+            // remove last 2 signs
+            builder.delete(builder.length() - 2, builder.length());
         }
-
-        result += "]";
-        return result;
+        builder.append("]");
+        return builder.toString();
     }
 }

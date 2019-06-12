@@ -25,5 +25,14 @@ public class Main {
         // 20
         myArrayList.add(1, 100);
         System.out.println(myArrayList);
+
+
+        // usun ostatni
+        myArrayList.remove(myArrayList.size() - 1);
+        System.out.println(myArrayList);
+        myArrayList.remove(3);
+        System.out.println(myArrayList);
+        myArrayList.remove(0);
+        System.out.println(myArrayList);
     }
 }
