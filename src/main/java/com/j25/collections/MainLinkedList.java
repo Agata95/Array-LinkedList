@@ -13,15 +13,26 @@ public class MainLinkedList {
 
         System.out.println(myLinkedList);
 
-        myLinkedList.add(1, 100);
+        myLinkedList.add(0, 100);
         System.out.println(myLinkedList);
         myLinkedList.add(5, 200);
         System.out.println(myLinkedList);
 
 //        myLinkedList.add(0, 300);
 //        System.out.println(myLinkedList);
-        myLinkedList.add(myLinkedList.size() - 1, 500);
+        myLinkedList.add(myLinkedList.size(), 500);
         System.out.println(myLinkedList);
 
+        System.out.println(myLinkedList.get(0));
+        System.out.println(myLinkedList.get(5));
+        System.out.println(myLinkedList.get(myLinkedList.size() - 1));
+//        System.out.println(myLinkedList.get(myLinkedList.size()));
+
+        myLinkedList.remove(0);
+        System.out.println(myLinkedList);
+        myLinkedList.remove(myLinkedList.size() - 1);
+        System.out.println(myLinkedList);
+        myLinkedList.remove(myLinkedList.size() / 2);
+        System.out.println(myLinkedList);
     }
 }

@@ -29,18 +29,22 @@ public class MyLinkedList {
     }
 
     public void add(int index, Object element) {
-        if (index < 0 || index >= size) {
+        if (index < 0 || index > size) {
             throw new ArrayIndexOutOfBoundsException();
+        }
+        if (index == size) {
+            add(element);
+            return;
         }
         int licznik = 0;
 
         Wezel tymczasowy = head;
-        while (licznik++ < (index -1)) {
+        while (licznik++ < (index)) {
             tymczasowy = tymczasowy.getNastepnik();
         }
 
-        Wezel poprzednik = tymczasowy;
-        Wezel nastepnik = tymczasowy.getNastepnik();
+        Wezel poprzednik = tymczasowy.getPoprzednik();
+        Wezel nastepnik = tymczasowy;
 
         Wezel nowyWezel = new Wezel(element);
         nowyWezel.setPoprzednik(poprzednik);
@@ -48,15 +52,51 @@ public class MyLinkedList {
 
         if (poprzednik != null) { // przypadek kiedy edytujemy w srodku
             poprzednik.setNastepnik(nowyWezel);
-        } else { // kiedy próbujemy wstawić na 0 pozycję
+        }
+        if (tymczasowy == head) {
             head = nowyWezel;
         }
-        if (nastepnik == null) {
-            tail = nowyWezel;
-        } else {
-            nastepnik.setPoprzednik(nowyWezel);
-        }
+        nastepnik.setPoprzednik(nowyWezel);
+
         size++;
+    }
+
+    public Object get(int index) {
+        if (index < 0 || index >= size) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+        Wezel tymczasowy = head;
+        int licznik = 0;
+        while (licznik++ < index) {
+            tymczasowy = tymczasowy.getNastepnik();
+        }
+        return tymczasowy.getData();
+    }
+
+    public void remove(int index) {
+        if (index < 0 || index >= size) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+        Wezel tymczasowy = head;
+        int licznik = 0;
+        while (licznik++ < index) {
+            tymczasowy = tymczasowy.getNastepnik();
+        }
+
+        Wezel poprzednik = tymczasowy.getPoprzednik();
+        Wezel nastepnik = tymczasowy.getNastepnik();
+
+//        tymczasowy.getPoprzednik().setNastepnik(tymczasowy.getNastepnik());
+        if (poprzednik != null)
+            poprzednik.setNastepnik(nastepnik);
+        if (nastepnik != null)
+            nastepnik.setPoprzednik(poprzednik);
+
+        if (tymczasowy == head) { // usuwamy 1 element
+            head = nastepnik;
+        }
+
+        size--;
     }
 
     public int size() {

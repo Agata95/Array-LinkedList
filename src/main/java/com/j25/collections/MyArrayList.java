@@ -2,7 +2,7 @@ package com.j25.collections;
 
 import java.util.Arrays;
 
-public class MyArrayList {
+public class MyArrayList<T> {
     private final static int INITIAL_ARRAYLIST_SIZE = 10;
     private Object[] elements;
     private int size = 0;
@@ -16,8 +16,8 @@ public class MyArrayList {
     }
 
     // get
-    public Object get(int index) {
-        return elements[index];
+    public T get(int index) {
+        return (T) elements[index];
     }
 
     // size
@@ -26,7 +26,7 @@ public class MyArrayList {
     }
 
     // add
-    public void add(Object object) {
+    public void add(T object) {
         if (size >= elements.length) {
             extendArray();
         }
@@ -41,7 +41,7 @@ public class MyArrayList {
         elements = newElements;
     }
 
-    public void add(int index, Object object) {
+    public void add(int index, T object) {
         if (index < 0 || index >= size) {
             throw new ArrayIndexOutOfBoundsException();
         }
@@ -58,7 +58,7 @@ public class MyArrayList {
         size++;
     }
 
-    private void extendArray(int positionToPutAt, Object object) {
+    private void extendArray(int positionToPutAt, T object) {
         Object[] newElements = new Object[elements.length * 2];
         for (int i = size - 1; i >= positionToPutAt; i--) {
             newElements[i + 1] = elements[i];
